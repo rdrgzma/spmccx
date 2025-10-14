@@ -44,7 +44,7 @@
                                 <th>{{ __('Email') }}</th>
                                 <th>{{ __('Telefone') }}</th>
                                 <th>{{ __('Data de Associação') }}</th>
-                                <th>{{ __('Ativo') }}</th>
+                                <th>{{ __('Associado(a)') }}</th>
                                 <th>{{ __('Ações') }}</th>
                             </tr>
                         </thead>
