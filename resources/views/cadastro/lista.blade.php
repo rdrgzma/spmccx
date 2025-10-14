@@ -20,10 +20,10 @@
                     </div>
                 </form>
                 <a class="btn btn-success" href="{{ route('lista.index') }}">
-                    Listar todos ativos
+                    Listar todos Associados(as)
                 </a>
                 <a class="btn btn-danger" href="{{route('lista.inativo')}}">
-                    Ver inativos
+                    Ver ex-associados 
                 </a>
                 <a class="btn btn-primary" href="{{ route('admin.form.pessoal') }}">
                     {{ __('Cadastrar Novo Associado') }}
@@ -46,7 +46,7 @@
                                 <th>{{ __('Email') }}</th>
                                 <th>{{ __('Telefone') }}</th>
                                 <th>{{ __('Data de Associação') }}</th>
-                                <th>{{ __('Ativo') }}</th>
+                                <th>{{ __('Associado(a)') }}</th>
                                 <th>{{ __('Ações') }}</th>
                             </tr>
                         </thead>
@@ -74,7 +74,7 @@
                                                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div class="modal-body text-center">
-                                                  <p>Deseja desativar o(a) associado(a)?</p>
+                                                  <p>Deseja desativar (cancelar a associação)  associado(a)?</p>
                                                   <h3>Nome: {{$cadastro->nome}}</h3>
                                                 </div>
                                                 <div class="modal-footer">
@@ -116,7 +116,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                                                  <a  href="{{route('cadastros.admin.ative',$cadastro->id)}}" type="button" class="btn btn-danger">APAGAR</a>
+                                                  <a  href="{{route('cadastros.destroy',$cadastro->id)}}" type="button" class="btn btn-danger">APAGAR</a>
                                                 </div>
                                               </div>
                                             </div>

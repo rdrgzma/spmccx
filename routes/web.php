@@ -75,7 +75,8 @@ Route::middleware('auth')->group(function () {
     Route::any('cadastros/search', [CadastroController::class, 'search'])->name('cadastro.search');
     Route::post('cadastros/search/inativo', [CadastroController::class, 'searchInativo'])->name('cadastro.search.inativo');
     Route::get('cadastros/export', [CadastroController::class, 'ExportCadastro'])->name('cadastro.export');
-
+    // deleta o cadastro do associado pelo admin
+    Route::get('cadastros/{id}/destroy', [CadastroController::class, 'destroy'])->name('cadastros.destroy');
 
 
 

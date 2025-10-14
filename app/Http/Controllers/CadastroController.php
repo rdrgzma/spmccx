@@ -112,7 +112,17 @@ class CadastroController extends Controller
 
     public function destroy($id)
     {
-        return view('cadastro.associado.destroy');
+        $dependentes = Dependente::where('cadastro_id', $id)->delete();
+    
+        $endereco = Endereco::where('cadastro_id', $id)->delete();
+        $matricula = Matricula::where('cadastro_id', $id)->delete();
+            
+        $autorizacoes = Autorizacao::where('cadastro_id', $id)->delete();
+        User::where('cadastro_id', $id)->delete();
+        $cadastro = Cadastro::where('id',$id)->delete();
+        return redirect()->route('lista.index');
+        
+               
     }
 
     public function createAdmin()

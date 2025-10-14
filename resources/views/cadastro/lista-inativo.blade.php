@@ -6,7 +6,7 @@
         <div class="page-header d-print-none">
             <div class="d-flex justify-content-between align-items-center">
                 <h2 class="page-title">
-                    {{ __('Cadastros Inativos') }}
+                    {{ __('Cadastros ex-associados(as') }}
                 </h2>
                 <form action="{{ route('cadastro.search') }}" method="post" class="">
                     @csrf
@@ -20,10 +20,10 @@
                     </div>
                 </form>
                 <a class="btn btn-success" href="{{ route('lista.index') }}">
-                    Ver cadastros ativos
+                    Ver cadastros associados 
                 </a>
                 <a class="btn btn-danger" href="{{ route('lista.inativo') }}">
-                    Listar todos inativos
+                    Listar todos ex-associados(as)
                 </a>
                 
 
