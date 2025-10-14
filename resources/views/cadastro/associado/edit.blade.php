@@ -295,6 +295,45 @@
                             </div>
 
                         </div>
+                        <!-- Para cada matrícula, adicione após o campo data_admissao -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Nomeação</label>
+                                <input type="date" name="data_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Nomeação</label>
+                                <input type="text" name="portaria_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Aposentadoria</label>
+                                <input type="date" name="data_aposentadoria1" class="form-control" 
+                                    value="{{ $matriculas->data_aposentadoria1 ?? old('data_aposentadoria1') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Aposentadoria</label>
+                                <input type="text" name="portaria_aposentadoria1" class="form-control" 
+                                    value="{{ $matriculas->portaria_aposentadoria1 ?? old('portaria_aposentadoria1') }}">
+                            </div>
+                        </div>
+                        <!-- Para cada matrícula, adicione após o campo data_admissao -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Nomeação</label>
+                                <input type="date" name="data_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Nomeação</label>
+                                <input type="text" name="portaria_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="form-group mb-3 col-md-4">
                                 <label class="form-label">Matrícula Funcional</label>
@@ -321,6 +360,20 @@
                             </div>
 
                         </div>
+                        <!-- Para cada matrícula, adicione após o campo data_admissao -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Nomeação</label>
+                                <input type="date" name="data_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Nomeação</label>
+                                <input type="text" name="portaria_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="form-group mb-3 col-md-4">
                                 <label class="form-label">Matrícula Funcional</label>
@@ -347,6 +400,20 @@
                             </div>
 
                         </div>
+                        <!-- Para cada matrícula, adicione após o campo data_admissao -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Nomeação</label>
+                                <input type="date" name="data_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Nomeação</label>
+                                <input type="text" name="portaria_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="form-group mb-3 col-md-4">
                                 <label class="form-label">Matrícula Funcional</label>
@@ -372,6 +439,19 @@
                                 </div>
                             </div>
 
+                        </div>
+                        <!-- Para cada matrícula, adicione após o campo data_admissao -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Nomeação</label>
+                                <input type="date" name="data_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Nomeação</label>
+                                <input type="text" name="portaria_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
+                            </div>
                         </div>
                        
                         <div class="row">

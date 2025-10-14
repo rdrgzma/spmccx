@@ -53,4 +53,9 @@ class Cadastro extends Model
     {
         return $this->hasOne(Endereco::class, 'cadastro_id');
     }
+    public function matriculas()
+    {
+        return $this->hasMany(Matricula::class, 'cadastro_id');
+    }
+    
 }

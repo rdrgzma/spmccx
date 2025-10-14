@@ -22,6 +22,9 @@
                 <a class="btn btn-success" href="{{ route('lista.index') }}">
                     Listar todos Associados(as)
                 </a>
+                 <a class="btn btn-info" href="{{route('admin.aposentados')}}">
+                    Listar todos Associados(as) Aposentados(as) 
+                </a>
                 <a class="btn btn-danger" href="{{route('lista.inativo')}}">
                     Ver ex-associados 
                 </a>

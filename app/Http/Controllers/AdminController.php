@@ -53,6 +53,7 @@ class AdminController extends Controller
     public function storeMatricula(Request $request)
     {
         $data = $request->all();
+       
         $cadastro = Cadastro::where('id', $data['cadastro_id'])->first();
         $_turnos = implode(',', $data['turnos']);
         $data['turnos'] = $_turnos;
@@ -237,6 +238,17 @@ class AdminController extends Controller
        // redirect url anterior
         //return redirect()->back();
       
+    }
+
+    public function aposentados()
+    {
+        $cadastros = Cadastro::whereHas('matriculas', function ($query) {
+            $query->aposentados();
+        })->with(['matriculas' => function ($query) {
+            $query->aposentados();
+        }])->get();
+
+        return view('cadastro.aposentados', compact('cadastros'));
     }
 
 }

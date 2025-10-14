@@ -227,71 +227,186 @@
                         <h3 class="mb-3">Dados Funcionais</h3>
                         <div class="row">
                             <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Matrícula Funcional Capão da Canoa</label>
+                                <label class="form-label">Matrícula Funcional</label>
                                 <div>
                                     <input type="text" class="form-control"
-                                        placeholder="Matrícula Funcional Capão da Canoa" name="matricula_cc">
+                                        placeholder="Matrícula Funcional Capão da Canoa" name="matricula1"
+                                        value="{{ $matriculas->matricula1}}" >
                                 </div>
                             </div>
                             <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Turnos de Trabalho Capão da Canoa</label>
+                                <label class="form-label">Cidade</label>
                                 <div>
-                                    <label class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" checked="" name="turnos_cc[]"
-                                            value="Manhã">
-                                        <span class="form-check-label">Manhã</span>
-                                    </label>
-                                    <label class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="turnos_cc[]" value="Tarde">
-                                        <span class="form-check-label">Tarde</span>
-                                    </label>
-                                    <label class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="turnos_cc[]" value="Noite">
-                                        <span class="form-check-label">Noite</span>
-                                    </label>
+                                    <input type="text" class="form-control" placeholder="Cidade" name="cidade1"
+                                        value="{{ $matriculas->cidade1}}" >
                                 </div>
                             </div>
                             <div class="form-group col-md-4 mb-3 ">
-                                <label class="form-label">Data de Admissão Capão da Canoa</label>
+                                <label class="form-label">Data de Admissão </label>
                                 <div>
                                     <input type="date" class="form-control" aria-describedby="emailHelp"
-                                        placeholder="Data de Adimissão" name="data_admissao_cc">
+                                        placeholder="Data de Adimissão" name="data_admissao1"
+                                        value="{{ $matriculas->data_admissao1 }}" >
                                 </div>
                             </div>
 
                         </div>
+                        <!-- Para cada matrícula, adicione após o campo data_admissao -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Nomeação</label>
+                                <input type="date" name="data_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Nomeação</label>
+                                <input type="text" name="portaria_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Aposentadoria</label>
+                                <input type="date" name="data_aposentadoria1" class="form-control" 
+                                    value="{{ $matriculas->data_aposentadoria1 ?? old('data_aposentadoria1') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Aposentadoria</label>
+                                <input type="text" name="portaria_aposentadoria1" class="form-control" 
+                                    value="{{ $matriculas->portaria_aposentadoria1 ?? old('portaria_aposentadoria1') }}">
+                            </div>
+                        </div>
+                        <!-- Para cada matrícula, adicione após o campo data_admissao -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Nomeação</label>
+                                <input type="date" name="data_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Nomeação</label>
+                                <input type="text" name="portaria_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Matrícula Funcional Xangri-lá</label>
+                                <label class="form-label">Matrícula Funcional</label>
                                 <div>
-                                    <input type="text" class="form-control" placeholder="Matrícula Funcional Xangri-lá"
-                                        name="matricula_xla">
+                                    <input type="text" class="form-control"
+                                        placeholder="Matrícula Funcional Capão da Canoa" name="matricula2"
+                                        value="{{ $matriculas->matricula2}}" >
                                 </div>
                             </div>
                             <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Turnos de Trabalho Xangri-lá</label>
+                                <label class="form-label">Cidade</label>
                                 <div>
-                                    <label class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" checked="" name="turnos_xla[]"
-                                            value="Manhã">
-                                        <span class="form-check-label">Manhã</span>
-                                    </label>
-                                    <label class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="turnos_xla[]" value="Tarde">
-                                        <span class="form-check-label">Tarde</span>
-                                    </label>
-                                    <label class="form-check form-check-inline">
-                                        <input class="form-check-input" type="checkbox" name="turnos_xla[]" value="Noite">
-                                        <span class="form-check-label">Noite</span>
-                                    </label>
+                                    <input type="text" class="form-control" placeholder="Função" name="cidade2"
+                                        value="{{ $matriculas->cidade2}}" >
                                 </div>
                             </div>
                             <div class="form-group col-md-4 mb-3 ">
-                                <label class="form-label">Data de Admissão Xangri-lá</label>
+                                <label class="form-label">Data de Admissão </label>
                                 <div>
                                     <input type="date" class="form-control" aria-describedby="emailHelp"
-                                        placeholder="Data de Adimissão" name="data_admissao_xla">
+                                        placeholder="Data de Adimissão" name="data_admissao2"
+                                        value="{{ $matriculas->data_admissao2 }}" >
                                 </div>
+                            </div>
+
+                        </div>
+                        <!-- Para cada matrícula, adicione após o campo data_admissao -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Nomeação</label>
+                                <input type="date" name="data_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Nomeação</label>
+                                <input type="text" name="portaria_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group mb-3 col-md-4">
+                                <label class="form-label">Matrícula Funcional</label>
+                                <div>
+                                    <input type="text" class="form-control"
+                                        placeholder="Matrícula Funcional Capão da Canoa" name="matricula3"
+                                        value="{{ $matriculas->matricula3}}" >
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 col-md-4">
+                                <label class="form-label">Cidade</label>
+                                <div>
+                                    <input type="text" class="form-control" placeholder="Função" name="cidade3"
+                                        value="{{ $matriculas->cidade3}}" >
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4 mb-3 ">
+                                <label class="form-label">Data de Admissão </label>
+                                <div>
+                                    <input type="date" class="form-control" aria-describedby="emailHelp"
+                                        placeholder="Data de Adimissão" name="data_admissao3"
+                                        value="{{ $matriculas->data_admissao3 }}" >
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Para cada matrícula, adicione após o campo data_admissao -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Nomeação</label>
+                                <input type="date" name="data_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Nomeação</label>
+                                <input type="text" name="portaria_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="form-group mb-3 col-md-4">
+                                <label class="form-label">Matrícula Funcional</label>
+                                <div>
+                                    <input type="text" class="form-control"
+                                        placeholder="Matrícula Funcional Capão da Canoa" name="matricula4"
+                                        value="{{ $matriculas->matricula4}}" >
+                                </div>
+                            </div>
+                            <div class="form-group mb-3 col-md-4">
+                                <label class="form-label">Cidade</label>
+                                <div>
+                                    <input type="text" class="form-control" placeholder="Função" name="cidade4"
+                                        value="{{ $matriculas->cidade4}}" >
+                                </div>
+                            </div>
+                            <div class="form-group col-md-4 mb-3 ">
+                                <label class="form-label">Data de Admissão </label>
+                                <div>
+                                    <input type="date" class="form-control" aria-describedby="emailHelp"
+                                        placeholder="Data de Adimissão" name="data_admissao4"
+                                        value="{{ $matriculas->data_admissao4 }}" >
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- Para cada matrícula, adicione após o campo data_admissao -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Nomeação</label>
+                                <input type="date" name="data_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Nomeação</label>
+                                <input type="text" name="portaria_nomeacao1" class="form-control" 
+                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
                             </div>
                         </div>
                         <div class="row">

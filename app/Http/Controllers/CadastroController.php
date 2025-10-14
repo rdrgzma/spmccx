@@ -288,15 +288,34 @@ class CadastroController extends Controller
             'matricula1' => $data['matricula1'],
             'cidade1' => $data['cidade1'],
             'data_admissao1' => $data['data_admissao1'],
+            'data_nomeacao1' => $data['data_nomeacao1'] ?? null,              // NOVO
+            'portaria_nomeacao1' => $data['portaria_nomeacao1'] ?? null,      // NOVO
+            'data_aposentadoria1' => $data['data_aposentadoria1'] ?? null,    // NOVO
+            'portaria_aposentadoria1' => $data['portaria_aposentadoria1'] ?? null, // NOVO
+
             'matricula2' => $data['matricula2'],
             'cidade2' => $data['cidade2'],
             'data_admissao2' => $data['data_admissao2'],
+            'data_nomeacao2' => $data['data_nomeacao2'] ?? null,              // NOVO
+            'portaria_nomeacao2' => $data['portaria_nomeacao2'] ?? null,      // NOVO
+            'data_aposentadoria2' => $data['data_aposentadoria2'] ?? null,    // NOVO
+            'portaria_aposentadoria2' => $data['portaria_aposentadoria2'] ?? null, // NOVO
+
             'matricula3' => $data['matricula3'],
             'cidade3' => $data['cidade3'],
             'data_admissao3' => $data['data_admissao3'],
+            'data_nomeacao3' => $data['data_nomeacao3'] ?? null,              // NOVO
+            'portaria_nomeacao3' => $data['portaria_nomeacao3'] ?? null,      // NOVO
+            'data_aposentadoria3' => $data['data_aposentadoria3'] ?? null,    // NOVO
+            'portaria_aposentadoria3' => $data['portaria_aposentadoria3'] ?? null, // NOVO 
+
             'matricula4' => $data['matricula4'],
             'cidade4' => $data['cidade4'],
             'data_admissao4' => $data['data_admissao4'],
+            'data_nomeacao4' => $data['data_nomeacao1'] ?? null,              // NOVO
+            'portaria_nomeacao4' => $data['portaria_nomeacao1'] ?? null,      // NOVO
+            'data_aposentadoria4' => $data['data_aposentadoria4'] ?? null,    // NOVO
+            'portaria_aposentadoria4' => $data['portaria_aposentadoria4'] ?? null, // NOVO
 
             'tel_comercial' => $data['tel_comercial'],
             'email_comercial' => $data['email_comercial'],

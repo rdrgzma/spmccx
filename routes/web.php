@@ -79,7 +79,7 @@ Route::middleware('auth')->group(function () {
     Route::get('cadastros/{id}/destroy', [CadastroController::class, 'destroy'])->name('cadastros.destroy');
 
 
-
+    Route::get('/admin/aposentados', [AdminController::class, 'aposentados'])->name('admin.aposentados');
     Route::get('cadastros/admin/create', [CadastroController::class, 'createAdmin'])->name('cadastros.admin.create');
     Route::post('cadastros/admin/store', [CadastroController::class, 'storeAdmin'])->name('cadastros.admin.store');
     Route::post('cadastros/admin/{id}/update', [CadastroController::class, 'updateCadastro'])->name('cadastros.admin.update');
