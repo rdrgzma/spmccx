@@ -27,6 +27,7 @@
                 <th>Matrícula</th>
                 <th>Data da Aposentadoria</th>
                 <th>Portaria</th>
+                <th>Ações</th>
             </tr>
         </thead>
         <tbody>
@@ -43,6 +44,35 @@
                                 <td>{{ $matricula->matricula }}</td>
                                 <td>{{ \Carbon\Carbon::parse($data)->format('d/m/Y') }}</td>
                                 <td>{{ $portaria }}</td>
+                                <td>
+                                        <a href="{{ route('cadastros.associado.ver', $cadastro->id) }}"
+                                            class="btn btn-sm btn-primary">{{ __('Ver') }}</a>
+                                        <a href="{{ route('cadastros.admin.edit', $cadastro->id) }}" class="btn btn-sm btn-warning">{{ __('Editar') }}</a>
+                                        <a href="{{route('cadastros.admin.dependente', $cadastro->id)}}" class="btn btn-sm btn-dark">{{ __('Dependentes') }}</a>
+                                        <button type="button" class="btn btn-sm bg-danger" data-bs-toggle="modal" data-bs-target="#modalApague{{$cadastro->id}}">
+                                            {{ __('APAGAR') }}
+                                          </button>
+                                          <div class="modal fade" id="modalApague{{$cadastro->id}}" tabindex="-1" aria-labelledby="modalAtiveLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                              <div class="modal-content">
+                                                <div class="modal-header">
+                                                  <h5 class="modal-title" id="modalApagueLabel">APAGAR CADASTRO</h5>
+                                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body text-center">
+                                                  <p>Deseja APAGAR o cadastro do(a) associado(a)?</p>
+                                                  <h3>Nome: {{$cadastro->nome}}</h3>
+                                                  <p> Esta ação é irreversível.</p>
+                                                </div>
+                                                <div class="modal-footer">
+                                                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                                                  <a  href="{{route('cadastros.destroy',$cadastro->id)}}" type="button" class="btn btn-danger">APAGAR</a>
+                                                </div>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </td>
+
                             </tr>
                         @endif
                     @endfor

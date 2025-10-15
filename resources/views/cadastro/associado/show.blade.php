@@ -1,437 +1,196 @@
 @extends("layouts.app")
 
 @section("content")
-    <div class="container-xl d-flex justify-content-center align-items-center ">
-        <!-- Page title -->
-        <div class="page-header d-print-none">
-            <h2 class="page-title">
-                {{ __("Formulário de cadastro de associado") }}
-            </h2>
-        </div>
-    </div>
-    <div class= "page-body d-flex justify-content-center align-items-center">
+<div class="container-xl">
 
-        <div class="col-md-6">
-            <div class="card">
+    <div class="page-header d-print-none text-center mb-4">
+        <h2 class="page-title">Ficha de Cadastro do Associado</h2>
+    </div>
+
+    {{-- Verifica se o associado é aposentado --}}
+    @php
+        $aposentado = $matriculas->data_aposentadoria1 || 
+                      $matriculas->data_aposentadoria2 || 
+                      $matriculas->data_aposentadoria3 || 
+                      $matriculas->data_aposentadoria4;
+    @endphp
+
+    @if($aposentado)
+        <div class="alert alert-warning text-center fw-bold py-3" style="background-color: #ffcc80; color:#663c00; border: none;">
+            <i class="fa-solid fa-person-cane"></i> ASSOCIADO APOSENTADO
+        </div>
+    @endif
+
+    <div class="page-body d-flex justify-content-center align-items-center">
+        <div class="col-md-10">
+            <div class="card" id="printArea">
                 <div class="card-header">
-                    <h3 class="card-title">Cadastro</h3>
+                    <h3 class="card-title">Dados do Associado</h3>
                 </div>
                 <div class="card-body">
-                    <form method="POST" action="{{ route('associado.store') }}">
+                    <form>
                         @csrf
+                        {{-- ============================================= --}}
+                        {{-- DADOS PESSOAIS --}}
+                        {{-- ============================================= --}}
                         <h3 class="mb-3">Dados Pessoais</h3>
-                        <div class="form-group col-md-4 mb-3 ">
-                            <label class="form-label">Data de Associação*</label>
-                            <div>
-                                <input type="date" class="form-control" aria-describedby="emailHelp"
-                                    placeholder="Data de Associação" name="data_associacao" disabled
-                                    value="{{$cadastro->data_associacao}}">
+
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Data de Associação</label>
+                                <input type="date" class="form-control" value="{{ $cadastro->data_associacao }}" disabled>
                             </div>
-                        </div>
-                        <div class="form-group mb-3 ">
-                            <label class="form-label">Nome Completo</label>
-                            <div>
-                                <input type="text" class="form-control" placeholder="Nome" name="name"
-                                    value="{{ $cadastro->nome }}" disabled>
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label class="form-label">Email</label>
-                            <div>
-                                <input type="email" class="form-control" placeholder="Email" name="email"
-                                    value="{{ $cadastro->email }}" disabled>
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label class="form-label">Nome da Mãe</label>
-                            <div>
-                                <input type="text" class="form-control" placeholder="Mãe" name="mae"
-                                    value="{{ $cadastro->mae }}" disabled>
-                            </div>
-                        </div>
-                        <div class="form-group mb-3">
-                            <label class="form-label">Nome do Pai</label>
-                            <div>
-                                <input type="text" class="form-control" placeholder="Pai" name="pai"
-                                    value="{{ $cadastro->pai }}" disabled>
+                            <div class="col-md-8 mb-3">
+                                <label class="form-label">Nome Completo</label>
+                                <input type="text" class="form-control" value="{{ $cadastro->nome }}" disabled>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="form-group col-6 mb-3 ">
-                                <label class="form-label">Telefone</label>
-                                <div>
-                                    <input type="phone" class="form-control" placeholder="(51)xxxx-xxxxx" name="telefone"
-                                        value="{{ $cadastro->telefone }}" disabled>
-                                </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">CPF</label>
+                                <input type="text" class="form-control" value="{{ $cadastro->cpf }}" disabled>
                             </div>
-                            <div class="form-group col-6 mb-3 ">
-                                <label class="form-label">Celular</label>
-                                <div>
-                                    <input type="phone" class="form-control" placeholder="(51)xxxx-xxxxx" name="celular"
-                                        value="{{ $cadastro->celular }}" disabled>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group mb-3">
-                                    <label class="form-label">CPF</label>
-                                    <div>
-                                        <input type="text" class="form-control" placeholder="CPF somente números"
-                                            name="cpf" value="{{ $cadastro->cpf }}" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group mb-3">
-                                    <label class="form-label">RG</label>
-                                    <div>
-                                        <input type="text" class="form-control" placeholder="RG somente números" name="rg"
-                                            value="{{ $cadastro->rg }}" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group mb-3">
-                                    <label class="form-label">PIS</label>
-                                    <div>
-                                        <input type="text" class="form-control" placeholder="PIS" name="pis"
-                                            value="{{ $cadastro->pis }}" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="form-group col-md-4 mb-3 ">
-                                <label class="form-label">Sexo</label>
-                               <div>
-                                    <select class="form-select" name="sexo" disabled>
-                                        <option>Selecione</option>
-                                        <option value="masculino" {{$cadastro->sexo == "masculino" ? "selected" : ""}}>
-                                            Masculino</option>
-
-                                        <option value="feminino" @if ($cadastro->sexo == "feminino") selected @endif>Feminino
-                                        </option>
-                                    </select>
-                                </div> 
-                            </div>
-                            <div class="form-group col-md-4 mb-3 ">
+                            <div class="col-md-6 mb-3">
                                 <label class="form-label">Data de Nascimento</label>
-                                <div>
-                                    <input type="date" class="form-control" name="data_nascimento"
-                                        value="{{ $cadastro->data_nascimento }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4 mb-3 ">
-                                <label class="form-label">Estado Civil</label>
-                                <div>
-                                    <select class="form-select" name="estado_civil" disabled>
-                                        <option value="solteiro(a)" @if ($cadastro->estado_civil == "solteiro(a)") selected @endif>
-                                            Solteiro(a)</option>
-                                        <option value="casado(a)" @if ($cadastro->estado_civil == "casado(a)") selected @endif>
-                                            Casado(a)</option>
-                                        <option value="divorciado(a)" @if ($cadastro->estado_civil == "divorciado(a)") selected @endif>
-                                            Divorciado(a)</option>
-                                        <option value="viuvo(a)" @if ($cadastro->estado_civil == "viuvo(a)") selected @endif>Viúvo(a)
-                                        </option>
-                                    </select>
-                                </div>
+                                <input type="date" class="form-control" value="{{ $cadastro->data_nascimento }}" disabled>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-group mb-3 col-md-6">
-                                <label class="form-label">Naturalidade</label>
-                                <div>
-                                    <input type="text" class="form-control" placeholder="Cidade/Estado"
-                                        name="naturalidade" value="{{ $cadastro->naturalidade }}" disabled>
-                                </div>
 
-                            </div>
-                            <div class="form-group mb-3 col-md-6">
-                                <label class="form-label">Nacionalidade</label>
-                                <div>
-                                    <input type="text" class="form-control" placeholder="Nacionalidade"
-                                        name="nacionalidade" value="Brasileira" value="{{ $cadastro->nacionalidade }}"
-                                        disabled>
-                                </div>
-                            </div>
+                        <div class="mb-3">
+                            <label class="form-label">E-mail Pessoal</label>
+                            <input type="email" class="form-control" value="{{ $cadastro->email }}" disabled>
                         </div>
-                        <hr class="mt-2">
+
+                        <hr>
+                        {{-- ============================================= --}}
+                        {{-- ENDEREÇO --}}
+                        {{-- ============================================= --}}
                         <h3 class="mb-3">Endereço</h3>
-                        <div class="row">
-                            <div class="form-group mb-3 col-md-8">
-                                <label class="form-label">Logradouro</label>
-                                <div>
-                                    <input type="text" class="form-control" placeholder="Avenda/Estrada/Rua"
-                                        name="logradouro" value="{{$endereco->logradouro}}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Número</label>
-                                <div>
-                                    <input type="text" class="form-control" placeholder="Número" name="numero"
-                                        value="{{ $endereco->numero }}" disabled>
-                                </div>
-                            </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Logradouro</label>
+                            <input type="text" class="form-control" value="{{ $endereco->logradouro }}" disabled>
                         </div>
+
                         <div class="row">
-                            <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Complemento</label>
-                                <div>
-                                    <input type="text" class="form-control" placeholder="Complemento" name="complemento"
-                                        value="{{ $endereco->complemento }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group mb-3 col-md-4">
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label">Bairro</label>
-                                <div>
-                                    <input type="text" class="form-control" placeholder="Bairro" name="bairro"
-                                        value="{{ $endereco->bairro }}" disabled>
-                                </div>
+                                <input type="text" class="form-control" value="{{ $endereco->bairro }}" disabled>
                             </div>
-                            <div class="form-group mb-3 col-md-4">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Cidade</label>
+                                <input type="text" class="form-control" value="{{ $endereco->cidade }}" disabled>
+                            </div>
+                            <div class="col-md-4 mb-3">
                                 <label class="form-label">CEP</label>
-                                <div>
-                                    <input type="text" class="form-control" placeholder="CEP - somente números" name="cep"
-                                        value="{{ $endereco->cep }}" disabled>
-                                </div>
+                                <input type="text" class="form-control" value="{{ $endereco->cep }}" disabled>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="form-group mb-3 col-md-6">
-                                <label class="form-label">Cidade</label>
-                                <div>
-                                    <input type="text" class="form-control" placeholder="Cidade" name="cidade"
-                                        value="{{ $endereco->cidade }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group mb-3 col-md-6">
-                                <label class="form-label">Estado</label>
-                                <div>
-                                    <select class="form-select" name="estado" disabled>
-                                        <option value="">Selecione o Estado</option>
-                                        <option value="AL" @if ($endereco->estado == "AL") selected @endif>Alagoas
-                                        </option>
-                                        <option value="AC" @if ($endereco->estado == "AC") selected @endif>Acre</option>
-                                        <option value="AP" @if ($endereco->estado == "AP") selected @endif>Amapá</option>
-                                        <option value="AM" @if ($endereco->estado == "AM") selected @endif>Amazonas
-                                        </option>
-                                        <option value="BA" @if ($endereco->estado == "BA") selected @endif>Bahia
-                                        </option>
-                                        <option value="CE" @if ($endereco->estado == "CE") selected @endif>Ceará
-                                        </option>
-                                        <option value="DF" @if ($endereco->estado == "DF") selected @endif>Distrito
-                                            Federal</option>
-                                        <option value="ES" @if ($endereco->estado == "ES") selected @endif>Espírito
-                                            Santo</option>
-                                        <option value="GO" @if ($endereco->estado == "GO") selected @endif>Goiás
-                                        </option>
-                                        <option value="MA" @if ($endereco->estado == "MA") selected @endif>Maranhão
-                                        </option>
-                                        <option value="MT" @if ($endereco->estado == "MT") selected @endif>Mato Grosso
-                                        </option>
-                                        <option value="MS" @if ($endereco->estado == "MS") selected @endif>Mato Grosso
-                                            do Sul</option>
-                                        <option value="MG" @if ($endereco->estado == "MG") selected @endif>Minas Gerais
-                                        </option>
-                                        <option value="PA" @if ($endereco->estado == "PA") selected @endif>Pará</option>
-                                        <option value="PB" @if ($endereco->estado == "PB") selected @endif>Paraíba
-                                        </option>
-                                        <option value="PR" @if ($endereco->estado == "PR") selected @endif>Paraná
-                                        </option>
-                                        <option value="PE" @if ($endereco->estado == "PE") selected @endif>Pernambuco
-                                        </option>
-                                        <option value="PI" @if ($endereco->estado == "PI") selected @endif>Piauí
-                                        </option>
-                                        <option value="RJ" @if ($endereco->estado == "RJ") selected @endif>Rio de
-                                            Janeiro</option>
-                                        <option value="RN" @if ($endereco->estado == "RN") selected @endif>Rio Grande do
-                                            Norte</option>
-                                        <option value="RS" @if ($endereco->estado == "RS") selected @endif>Rio Grande do
-                                            Sul</option>
-                                        <option value="RO" @if ($endereco->estado == "RO") selected @endif>Rondônia
-                                        </option>
-                                        <option value="RR" @if ($endereco->estado == "RR") selected @endif>Roraima
-                                        </option>
-                                        <option value="SC" @if ($endereco->estado == "SC") selected @endif>Santa
-                                            Catarina</option>
-                                        <option value="SP" @if ($endereco->estado == "SP") selected @endif>São Paulo
-                                        </option>
-                                        <option value="SE" @if ($endereco->estado == "SE") selected @endif>Sergipe
-                                        </option>
-                                        <option value="TO" @if ($endereco->estado == "TO") selected @endif>Tocantins
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <hr class="mt-2">
+
+                        <hr>
+                        {{-- ============================================= --}}
+                        {{-- DADOS FUNCIONAIS --}}
+                        {{-- ============================================= --}}
                         <h3 class="mb-3">Dados Funcionais</h3>
-                        <div class="row">
-                            <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Matrícula Funcional</label>
-                                <div>
-                                    <input type="text" class="form-control"
-                                        placeholder="Matrícula Funcional Capão da Canoa" name="matricula_cc"
-                                        value="{{ $matriculas->matricula1}}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Cidade</label>
-                                <div>
-                                    <input type="text" class="form-control" placeholder="Função" name="turnos_cc"
-                                        value="{{ $matriculas->cidade1}}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4 mb-3 ">
-                                <label class="form-label">Data de Admissão </label>
-                                <div>
-                                    <input type="date" class="form-control" aria-describedby="emailHelp"
-                                        placeholder="Data de Adimissão" name="data_admissao_cc"
-                                        value="{{ $matriculas->data_admissao1 }}" disabled>
-                                </div>
-                            </div>
 
-                        </div>
                         <div class="row">
-                            <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Matrícula Funcional</label>
-                                <div>
-                                    <input type="text" class="form-control"
-                                        placeholder="Matrícula Funcional Capão da Canoa" name="matricula_cc"
-                                        value="{{ $matriculas->matricula2}}" disabled>
-                                </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Cargo</label>
+                                <input type="text" class="form-control" value="{{ $matriculas->cargo }}" disabled>
                             </div>
-                            <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Cidade</label>
-                                <div>
-                                    <input type="text" class="form-control" placeholder="Função" name="turnos_cc"
-                                        value="{{ $matriculas->cidade2}}" disabled>
-                                </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Função</label>
+                                <input type="text" class="form-control" value="{{ $matriculas->funcao }}" disabled>
                             </div>
-                            <div class="form-group col-md-4 mb-3 ">
-                                <label class="form-label">Data de Admissão </label>
-                                <div>
-                                    <input type="date" class="form-control" aria-describedby="emailHelp"
-                                        placeholder="Data de Adimissão" name="data_admissao_cc"
-                                        value="{{ $matriculas->data_admissao2 }}" disabled>
-                                </div>
-                            </div>
+                        </div>
 
-                        </div>
                         <div class="row">
-                            <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Matrícula Funcional</label>
-                                <div>
-                                    <input type="text" class="form-control"
-                                        placeholder="Matrícula Funcional Capão da Canoa" name="matricula_cc"
-                                        value="{{ $matriculas->matricula3}}" disabled>
-                                </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Área</label>
+                                <input type="text" class="form-control" value="{{ $matriculas->area }}" disabled>
                             </div>
-                            <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Cidade</label>
-                                <div>
-                                    <input type="text" class="form-control" placeholder="Função" name="turnos_cc"
-                                        value="{{ $matriculas->cidade3}}" disabled>
-                                </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Turnos</label>
+                                <input type="text" class="form-control" value="{{ $matriculas->turnos }}" disabled>
                             </div>
-                            <div class="form-group col-md-4 mb-3 ">
-                                <label class="form-label">Data de Admissão </label>
-                                <div>
-                                    <input type="date" class="form-control" aria-describedby="emailHelp"
-                                        placeholder="Data de Adimissão" name="data_admissao_cc"
-                                        value="{{ $matriculas->data_admissao3 }}" disabled>
-                                </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Telefone Comercial</label>
+                                <input type="text" class="form-control" value="{{ $matriculas->tel_comercial }}" disabled>
                             </div>
+                        </div>
 
+                        <div class="mb-3">
+                            <label class="form-label">E-mail Comercial</label>
+                            <input type="text" class="form-control" value="{{ $matriculas->email_comercial }}" disabled>
                         </div>
-                        <div class="row">
-                            <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Matrícula Funcional</label>
-                                <div>
-                                    <input type="text" class="form-control"
-                                        placeholder="Matrícula Funcional Capão da Canoa" name="matricula_cc"
-                                        value="{{ $matriculas->matricula3}}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Cidade</label>
-                                <div>
-                                    <input type="text" class="form-control" placeholder="Função" name="turnos_cc"
-                                        value="{{ $matriculas->cidade3}}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-4 mb-3 ">
-                                <label class="form-label">Data de Admissão </label>
-                                <div>
-                                    <input type="date" class="form-control" aria-describedby="emailHelp"
-                                        placeholder="Data de Adimissão" name="data_admissao_cc"
-                                        value="{{ $matriculas->data_admissao3 }}" disabled>
-                                </div>
-                            </div>
 
-                        </div>
-                       
-                        <div class="row">
-                            <div class="form-group col-md-6 mb-3">
-                                <label class="form-label">Cargo/Local de Trabalho Capão da Canoa</label>
-                                <div>
-                                    <input type="text" class="form-control"
-                                        placeholder="Cargo/Local de Trabalho Capão da Canoa" name="cargo_cc"
-                                        value="{{ $cadastro->cargo_cc }}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6 mb-3">
-                                <label class="form-label">Cargo/Local de Trabalho Xangri-lá</label>
-                                <div>
-                                    <input type="text" class="form-control"
-                                        placeholder="Cargo/Local de Trabalho Xangri-lá" name="cargo_xla"
-                                        value="{{ $cadastro->cargo_xla }}" disabled>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-group col-md-6 mb-3">
-                                    <label class="form-label">Telefone Contato comercial</label>
-                                    <div>
-                                        <input type="phone" class="form-control" placeholder="(51)xxxx-xxxxx"
-                                            name="tel_comercial_cc" value="{{ $cadastro->tel_comercial_cc }}" disabled>
+                        {{-- ============================================= --}}
+                        {{-- CARDS DE MATRÍCULAS --}}
+                        {{-- ============================================= --}}
+                        <hr>
+                        <h3 class="mb-3">Matrículas e Situação Funcional</h3>
+{{-- flex, mostrar cards uma al=lado do outro --}}
+<div class="d-flex  gap-3">
+
+                        @for($i=1; $i<=4; $i++)
+                            @php
+                                $matricula = $matriculas->{'matricula'.$i};
+                                $cidade = $matriculas->{'cidade'.$i};
+                                $data_admissao = $matriculas->{'data_admissao'.$i};
+                                $data_nomeacao = $matriculas->{'data_nomeacao'.$i};
+                                $portaria_nomeacao = $matriculas->{'portaria_nomeacao'.$i};
+                                $data_aposentadoria = $matriculas->{'data_aposentadoria'.$i};
+                                $portaria_aposentadoria = $matriculas->{'portaria_aposentadoria'.$i};
+
+                                $temDados = $matricula || $data_nomeacao || $portaria_nomeacao || $data_aposentadoria || $portaria_aposentadoria;
+                            @endphp
+
+                            @if($temDados)
+                                <div class="card mb-3 shadow-sm" style="border-left: 6px solid {{ $data_aposentadoria ? '#ff9800' : '#0d6efd' }};">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            Matrícula:  {{ $matricula ?? '—' }}
+                                            @if($data_aposentadoria)
+                                                <span class="badge bg-warning text-dark ms-2">Aposentado</span>
+                                            @endif
+                                        </h5>
+                                        <p><strong>Cidade:</strong> {{ $cidade ?? '—' }}</p>
+                                        <p><strong>Data de Admissão:</strong> {{ $data_admissao ?? '—' }}</p>
+                                        <p><strong>Data de Nomeação:</strong> {{ $data_nomeacao ?? '—' }}</p>
+                                        <p><strong>Portaria de Nomeação:</strong> {{ $portaria_nomeacao ?? '—' }}</p>
+                                        <p><strong>Data de Aposentadoria:</strong> {{ $data_aposentadoria ?? '—' }}</p>
+                                        <p><strong>Portaria de Aposentadoria:</strong> {{ $portaria_aposentadoria ?? '—' }}</p>
                                     </div>
                                 </div>
-                                <div class="form-group col-md-6 mb-3">
-                                    <label class="form-label">Email</label>
-                                    <div>
-                                        <input type="email" class="form-control" placeholder="E-mail"
-                                            name="email_comercial_cc" value="{{ $cadastro->email_comercial_cc }}"
-                                            disabled>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group mb-3 ">
-                            <label class="form-label">Função</label>
-                            <div>
-                                <textarea class="form-control" rows="3" placeholder="Função" name="funcao"
-                                    disabled>{{ $cadastro->funcao }}</textarea>
-
-                            </div>
-                        </div>
-                        <div class="form-group mb-3 ">
-                            <label class="form-label">Área</label>
-                            <div>
-                                <input type="text" class="form-control" placeholder="Área" name="area"
-                                    value="{{ $cadastro->area }}" disabled>
-                            </div>
-                        </div>
+                            @endif
+                        @endfor
+</div>
+                    </form>
                 </div>
-                <div class="form-footer">
-                    <a href="{{ route("home") }}" class="btn btn-primary">Voltar</a>
 
-                </div>
-                </form>
+             
             </div>
         </div>
     </div>
-    </div>
+</div>
 @endsection
+
+@section("scripts")
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+document.getElementById('btnPrintPdf').addEventListener('click', function() {
+    const element = document.getElementById('printArea');
+    const opt = {
+        margin:       0.5,
+        filename:     'ficha_associado_{{ Str::slug($cadastro->nome, "_") }}.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2 },
+        jsPDF:        { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+    html2pdf().set(opt).from(element).save();
+});
+</script>
+@endsection
+
+

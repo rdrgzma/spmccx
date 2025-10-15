@@ -267,11 +267,11 @@
                                 </div>
                             </div>
                         </div>
-                        <hr class="mt-2">
+                           <hr class="mt-4 mb-4">
                         <h3 class="mb-3">Dados Funcionais</h3>
                         <div class="row">
                             <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Matrícula Funcional</label>
+                                <label class="form-label">Matrícula Funcional 1</label>
                                 <div>
                                     <input type="text" class="form-control"
                                         placeholder="Matrícula Funcional Capão da Canoa" name="matricula1"
@@ -321,22 +321,11 @@
                             </div>
                         </div>
                         <!-- Para cada matrícula, adicione após o campo data_admissao -->
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Data de Nomeação</label>
-                                <input type="date" name="data_nomeacao1" class="form-control" 
-                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
-                            </div>
-                            <div class="col-md-6">
-                                <label>Portaria de Nomeação</label>
-                                <input type="text" name="portaria_nomeacao1" class="form-control" 
-                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
-                            </div>
-                        </div>
+                        <hr class="mt-4 mb-4">
 
                         <div class="row">
                             <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Matrícula Funcional</label>
+                                <label class="form-label">Matrícula Funcional 2</label>
                                 <div>
                                     <input type="text" class="form-control"
                                         placeholder="Matrícula Funcional Capão da Canoa" name="matricula2"
@@ -360,26 +349,39 @@
                             </div>
 
                         </div>
+                        
                         <!-- Para cada matrícula, adicione após o campo data_admissao -->
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Data de Nomeação</label>
-                                <input type="date" name="data_nomeacao1" class="form-control" 
-                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
+                                <input type="date" name="data_nomeacao2" class="form-control" 
+                                    value="{{ $matriculas->data_nomeacao2 ?? old('data_nomeacao2') }}">
                             </div>
                             <div class="col-md-6">
                                 <label>Portaria de Nomeação</label>
-                                <input type="text" name="portaria_nomeacao1" class="form-control" 
-                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
+                                <input type="text" name="portaria_nomeacao2" class="form-control" 
+                                    value="{{ $matriculas->portaria_nomeacao2 ?? old('portaria_nomeacao2') }}">
                             </div>
                         </div>
-
+                         <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Aposentadoria</label>
+                                <input type="date" name="data_aposentadoria2" class="form-control" 
+                                    value="{{ $matriculas->data_aposentadoria2 ?? old('data_aposentadoria2') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Aposentadoria</label>
+                                <input type="text" name="portaria_aposentadoria2" class="form-control" 
+                                    value="{{ $matriculas->portaria_aposentadoria2 ?? old('portaria_aposentadoria2') }}">
+                            </div>
+                        </div>
+                         <hr class="mt-4 mb-4">
                         <div class="row">
                             <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Matrícula Funcional</label>
+                                <label class="form-label">Matrícula Funcional 3</label>
                                 <div>
                                     <input type="text" class="form-control"
-                                        placeholder="Matrícula Funcional Capão da Canoa" name="matricula3"
+                                        placeholder="Matrícula Funcional" name="matricula3"
                                         value="{{ $matriculas->matricula3}}" >
                                 </div>
                             </div>
@@ -404,19 +406,32 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Data de Nomeação</label>
-                                <input type="date" name="data_nomeacao1" class="form-control" 
-                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
+                                <input type="date" name="data_nomeacao3" class="form-control" 
+                                    value="{{ $matriculas->data_nomeacao3 ?? old('data_nomeacao3') }}">
                             </div>
                             <div class="col-md-6">
                                 <label>Portaria de Nomeação</label>
-                                <input type="text" name="portaria_nomeacao1" class="form-control" 
-                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
+                                <input type="text" name="portaria_nomeacao3" class="form-control" 
+                                    value="{{ $matriculas->portaria_nomeacao3 ?? old('portaria_nomeacao3') }}">
                             </div>
                         </div>
+                         <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Aposentadoria</label>
+                                <input type="date" name="data_aposentadoria3" class="form-control" 
+                                    value="{{ $matriculas->data_aposentadoria3 ?? old('data_aposentadoria3') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Aposentadoria</label>
+                                <input type="text" name="portaria_aposentadoria3" class="form-control" 
+                                    value="{{ $matriculas->portaria_aposentadoria3 ?? old('portaria_aposentadoria3') }}">
+                            </div>
+                        </div>
+                        <hr class="mt-4 mb-4">
 
                         <div class="row">
                             <div class="form-group mb-3 col-md-4">
-                                <label class="form-label">Matrícula Funcional</label>
+                                <label class="form-label">Matrícula Funcional 4</label>
                                 <div>
                                     <input type="text" class="form-control"
                                         placeholder="Matrícula Funcional Capão da Canoa" name="matricula4"
@@ -444,16 +459,28 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <label>Data de Nomeação</label>
-                                <input type="date" name="data_nomeacao1" class="form-control" 
-                                    value="{{ $matriculas->data_nomeacao1 ?? old('data_nomeacao1') }}">
+                                <input type="date" name="data_nomeacao4" class="form-control" 
+                                    value="{{ $matriculas->data_nomeacao4 ?? old('data_nomeacao4') }}">
                             </div>
                             <div class="col-md-6">
                                 <label>Portaria de Nomeação</label>
-                                <input type="text" name="portaria_nomeacao1" class="form-control" 
-                                    value="{{ $matriculas->portaria_nomeacao1 ?? old('portaria_nomeacao1') }}">
+                                <input type="text" name="portaria_nomeacao4" class="form-control" 
+                                    value="{{ $matriculas->portaria_nomeacao4 ?? old('portaria_nomeacao4') }}">
                             </div>
                         </div>
-                       
+                         <div class="row">
+                            <div class="col-md-6">
+                                <label>Data de Aposentadoria</label>
+                                <input type="date" name="data_aposentadoria4" class="form-control" 
+                                    value="{{ $matriculas->data_aposentadoria4 ?? old('data_aposentadoria4') }}">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Portaria de Aposentadoria</label>
+                                <input type="text" name="portaria_aposentadoria4" class="form-control" 
+                                    value="{{ $matriculas->portaria_aposentadoria4 ?? old('portaria_aposentadoria4') }}">
+                            </div>
+                        </div>
+                          <hr class="mt-4 mb-4">
                         <div class="row">
                             <div class="form-group col-md-6 mb-3">
                                 <label class="form-label">Cargo/Local de Trabalho Capão da Canoa</label>
