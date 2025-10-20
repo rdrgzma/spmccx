@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
+use App\Models\HistoricoAssociacao;
 use App\Models\{
     Autorizacao,
     Cadastro,
@@ -23,6 +24,7 @@ class AdminController extends Controller
     }
     public function formPessoal()
     {
+       
 
         return view('cadastro.pessoal');
     }
@@ -213,9 +215,26 @@ class AdminController extends Controller
     {
         $cadastro = Cadastro::find($id);
         if ($cadastro->ativo == 'nao') {
-            $cadastro->update(['ativo' => 'sim']);
+            $cadastro->update(['ativo' => 'sim', 'data_desativacao' => now()]);
+            $historico = HistoricoAssociacao::create([
+                'cadastro_id' => $cadastro->id,
+                'user_id' => auth()->id(),
+                'acao' => 'desativado',
+                'data_acao' => now(),
+                'motivo' => 'Desativação pelo admin',
+                'realizado_por' => auth()->user()->name,
+            ]);
+
         } else {
             $cadastro->update(['ativo' => 'nao']);
+            $historico = HistoricoAssociacao::create([
+                'cadastro_id' => $cadastro->id,
+                'user_id' => auth()->id(),
+                'acao' => 'ativado',
+                'data_acao' => now(),
+                'motivo' => 'Ativação pelo admin',
+                'realizado_por' => auth()->user()->name,
+            ]); 
         }
         
          $cadastros = Cadastro::where('ativo', 'sim')->orderBy('id','asc')->paginate(25);
@@ -250,5 +269,59 @@ class AdminController extends Controller
 
         return view('cadastro.aposentados', compact('cadastros'));
     }
+
+
+    // Adicione estes métodos na classe AdminController
+
+
+
+/**
+ * Ativar associado com motivo
+ */
+public function ativarAssociado(Request $request, $id)
+{
+    $cadastro = Cadastro::findOrFail($id);
+    $motivo = $request->input('motivo', 'Ativação pelo admin');
+
+    $cadastro->ativar($motivo);
+
+    return redirect()->back()
+        ->with('success', "Associado {$cadastro->nome} foi ativado com sucesso!");
+}
+
+/**
+ * Desativar associado com motivo
+ */
+public function desativarAssociado(Request $request, $id)
+{
+    dd('chegou aqui');
+    $cadastro = Cadastro::findOrFail($id);
+    $motivo = $request->input('motivo', 'Desativação pelo admin');
+
+    $cadastro->desativar($motivo);
+
+    return redirect()->back()
+        ->with('success', "Associado {$cadastro->nome} foi desativado com sucesso!");
+}
+
+/**
+ * Obter histórico do associado (para AJAX)
+ */
+public function historicoAssociado($id)
+{
+    $cadastro = Cadastro::with('historicos')->findOrFail($id);
+
+    return response()->json([
+        'associado' => $cadastro->nome,
+        'historicos' => $cadastro->historicos->map(function ($historico) {
+            return [
+                'acao' => ucfirst($historico->acao),
+                'data' => $historico->data_acao->format('d/m/Y'),
+                'motivo' => $historico->motivo ?? 'Sem motivo informado',
+                'realizado_por' => $historico->realizado_por,
+            ];
+        })
+    ]);
+}
 
 }

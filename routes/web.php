@@ -12,7 +12,8 @@ use App\Http\Controllers\{
     ListaController,
     PdfController,
     ConvenioController,
-    DocumentosController
+    DocumentosController,
+    AprovacaoCadastroController
 };
 
 
@@ -44,7 +45,10 @@ Route::middleware('auth')->group(function () {
 
 // rota cadastro do associado site
     Route::resource('cadastros/associado', CadastroController::class);
-    Route::get('cadastros/associado/pessoal/form', [CadastroController::class, 'formPessoal'])->name('associado.form.pessoal');
+    Route::get('cadastros/associado/pessoal/form', [CadastroController::class, 'createFromSite'])->name('associado.form.pessoal');
+    //rota para salvar o formulario do site
+    Route::post('cadastros/associado/pessoal/store', [CadastroController::class, 'storeForm'])->name('associado.form.store');
+    
     // rota ajax para o cadastro de pessoal
     Route::post('cadastros/associado/pessoal', [CadastroController::class, 'storePessoal'])->name('associado.pessoal');
     // rota ajax para o cadastro de dependentes
@@ -115,6 +119,26 @@ Route::middleware('auth')->group(function () {
     Route::get('profile', [ProfileController::class, 'show'])->name('profile.show');
     Route::put('profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::get('pdf', [PdfController::class, 'pdf'])->name('associado.pdf');
+
+Route::post('cadastros/admin/{id}/ativar', [AdminController::class, 'ativarAssociado'])->name('cadastros.ativar');
+Route::post('cadastros/admin/{id}/desativar', [AdminController::class, 'desativarAssociado'])->name('cadastros.desativar');
+
+    // rotas para aprovar cadastros do site
+        Route::get('/admin/aprovacoes', [AprovacaoCadastroController::class, 'index'])
+        ->name('aprovacoes.index');
+
+    // Visualizar detalhes do cadastro
+    Route::get('/admin/aprovacoes/{id}', [AprovacaoCadastroController::class, 'show'])
+        ->name('aprovacoes.show');
+
+    // Aprovar cadastro
+    Route::post('/admin/aprovacoes/{id}/aprovar', [AprovacaoCadastroController::class, 'aprovar'])
+        ->name('aprovacoes.aprovar');
+
+    // Rejeitar cadastro
+    Route::post('/admin/aprovacoes/{id}/rejeitar', [AprovacaoCadastroController::class, 'rejeitar'])
+        ->name('aprovacoes.rejeitar');
+
 });
 Route::get('convenios/list', [CadastroController::class, 'ListarCadastroDependentes'])->name('convenios.list');
 Route::post('convenios/search', [CadastroController::class, 'searchAssociadoConvenio'])->name('convenios.search');

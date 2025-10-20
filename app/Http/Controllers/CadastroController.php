@@ -12,6 +12,7 @@ use App\Models\Dependente;
 use App\Models\Endereco;
 use App\Models\Autorizacao;
 use App\Models\Matricula;
+use Illuminate\Support\Facades\DB;
 
 
 class CadastroController extends Controller
@@ -27,38 +28,169 @@ class CadastroController extends Controller
         return view('cadastro.associado.criar.pessoal', compact('user'));
     }
 
+// mostra form cadastro site 
 
+    public function createFromSite()
+    {
+        return view('cadastro.site.formCadastro');
+    }
 
+    // cadastro  do associado 
+public function storeForm(Request $request)
+{
+    $data = $request->all();
+
+    // 1. Criar ou atualizar usuário
+    $user = User::firstOrCreate(
+        ['email' => $data['email']],
+        [
+            'name' => $data['name'],
+            'password' => Hash::make($data['cpf']),
+            'role' => 'Associado(a)',
+            'status' => 'Aguardando',
+            'has_cadastro_completo' => true,
+        ]
+    );
+
+    // 2. Criar cadastro sempre novo
+    $cadastro = Cadastro::create([
+        'user_id' => $user->id,
+        // data de associação  hoje
+        'data_associacao' => now(),
+        'nome' => $data['name'],
+        'email' => $data['email'],
+        'telefone' => $data['telefone'] ?? null,
+        'celular' => $data['celular'] ?? null,
+        'mae' => $data['mae'],
+        'pai' => $data['pai'] ?? null,
+        'rg' => $data['rg'],
+        'cpf' => $data['cpf'],
+        'pis' => $data['pis'] ?? null,
+        'data_nascimento' => $data['data_nascimento'],
+        'sexo' => $data['sexo'],
+        'estado_civil' => $data['estado_civil'],
+        'nacionalidade' => $data['nacionalidade'] ?? 'brasileiro(a)',
+        'naturalidade' => $data['naturalidade'],
+        'ativo' => 'nao',
+    ]);
+
+    // 3. Criar endereço
+    Endereco::create([
+        'user_id' => $user->id,
+        'cadastro_id' => $cadastro->id,
+        'logradouro' => $data['logradouro'],
+        'numero' => $data['numero'],
+        'complemento' => $data['complemento'] ?? null,
+        'bairro' => $data['bairro'],
+        'cep' => $data['cep'],
+        'cidade' => $data['cidade'],
+        'estado' => $data['estado'],
+    ]);
+
+    // 4. Preparar dados de matrícula
+    $matriculaData = [
+        'user_id' => $user->id,
+        'cadastro_id' => $cadastro->id,
+        'turnos' => isset($data['turnos']) ? implode(',', $data['turnos']) : null,
+        'tel_comercial' => $data['tel_comercial'] ?? null,
+        'email_comercial' => $data['email_comercial'] ?? null,
+        'funcao' => isset($data['funcao']) ? implode(',', $data['funcao']) : null,
+        'area' => $data['area'] ?? null,
+    ];
+
+    // Adicionar dados de cada matrícula (1 a 4)
+    for ($i = 1; $i <= 4; $i++) {
+        $matriculaData["matricula{$i}"] = $data["matricula{$i}"] ?? null;
+        $matriculaData["cidade{$i}"] = $data["cidade{$i}"] ?? null;
+        $matriculaData["data_admissao{$i}"] = $data["data_admissao{$i}"] ?? null;
+        $matriculaData["portaria_nomeacao{$i}"] = $data["portaria_nomeacao{$i}"] ?? null;
+        $matriculaData["data_nomeacao{$i}"] = $data["data_nomeacao{$i}"] ?? null;
+        $matriculaData["portaria_aposentadoria{$i}"] = $data["portaria_aposentadoria{$i}"] ?? null;
+        $matriculaData["data_aposentadoria{$i}"] = $data["data_aposentadoria{$i}"] ?? null;
+    }
+
+    // 5. Criar matrícula
+    Matricula::create($matriculaData);
+
+    // 6. Atualizar user com cadastro_id
+    $user->update(['cadastro_id' => $cadastro->id]);
+
+    return redirect()->route('login')
+        ->with('success', 'Cadastro realizado com sucesso!');
+}
+
+    public function formPessoal()
+    {
+       
+
+        return view('cadastro.pessoal');
+    }
     public function storePessoal(Request $request)
     {
-
+        
         $data = $request->all();
-        $data['user_id'] = auth()->user()->id;
+   
         $cadastro = Cadastro::create($data);
-
-
-
-        return view('cadastro.associado.criar.endereco', compact('cadastro'));
+        if($cadastro->id){
+            $user = new User();
+        $user->name = $data['nome'];
+        $user->email = $data['email'];
+        $user->password = Hash::make($data['cpf']);
+        $user->has_cadastro_completo =true; 
+        $user->save();
+        $data['user_id'] = $user->id;
+        };
+        
+        return view('cadastro.endereco', compact('cadastro'));
     }
     public function storeEndereco(Request $request)
     {
         $data = $request->all();
         $cadastro = Cadastro::where('id', $data['cadastro_id'])->first();
         $endereco = Endereco::create($data);
-        return view('cadastro.associado.criar.matricula', compact('cadastro'));
+        return view('cadastro.matricula', compact('cadastro'));
     }
     public function storeMatricula(Request $request)
     {
         $data = $request->all();
+       
         $cadastro = Cadastro::where('id', $data['cadastro_id'])->first();
         $_turnos = implode(',', $data['turnos']);
         $data['turnos'] = $_turnos;
         $_funcao = implode(',', $data['funcao']);
         $data['funcao'] = $_funcao;
         $matricula = Matricula::create($data);
-
+       
         $cadastros = Cadastro::paginate(25);
         return view('cadastro.lista', compact('cadastros'));
+    }
+    public function storeDependente(Request $request)
+    {
+        $data = $request->all();
+        $cadastro = Cadastro::where('id', $data['cadastro_id'])->first();
+
+
+        $dependente1 = array('cadastro_id' => $data['cadastro_id'], 'nome' => $data['nome1'], 'data_nascimento' => $data['data_nascimento1'], 'parentesco' => $data['parentesco1']);
+        $dependente2 = array('cadastro_id' => $data['cadastro_id'], 'nome' => $data['nome2'], 'data_nascimento' => $data['data_nascimento2'], 'parentesco' => $data['parentesco2']);
+        $dependente3 = array('cadastro_id' => $data['cadastro_id'], 'nome' => $data['nome3'], 'data_nascimento' => $data['data_nascimento3'], 'parentesco' => $data['parentesco3']);
+        $dependente4 = array('cadastro_id' => $data['cadastro_id'], 'nome' => $data['nome4'], 'data_nascimento' => $data['data_nascimento4'], 'parentesco' => $data['parentesco4']);
+        $dependente5 = array('cadastro_id' => $data['cadastro_id'], 'nome' => $data['nome5'], 'data_nascimento' => $data['data_nascimento5'], 'parentesco' => $data['parentesco5']);
+        if (!empty($dependente1['nome'])) {
+            $dependente = Dependente::create($dependente1);
+        }
+        if (!empty($dependente2['nome'])) {
+            $dependente = Dependente::create($dependente2);
+        }
+        if (!empty($dependente3['nome'])) {
+            $dependente = Dependente::create($dependente3);
+        }
+        if (!empty($dependente4['nome'])) {
+            $dependente = Dependente::create($dependente4);
+        }
+        if (!empty($dependente5['nome'])) {
+            $dependente = Dependente::create($dependente5);
+        }
+        return view('cadastro.autorizacao', compact('cadastro'));
     }
     public function store(Request $request)
     {
@@ -171,9 +303,13 @@ class CadastroController extends Controller
     }
 
     public function listaCadastro()
-    {
-        $cadastros = Cadastro::where('ativo', 'sim')->orderBy('id','asc')->paginate(25);
-        $inativos = false;
+    {$cadastros =  Cadastro::where('ativo', 'sim')
+        ->with(['user','historicos'])
+        ->orderBy('id', 'asc')
+        ->paginate(25);
+
+    $inativos = false;
+
         return view('cadastro.lista', compact('cadastros', 'inativos'));
     }
 

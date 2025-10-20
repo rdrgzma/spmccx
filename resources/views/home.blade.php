@@ -12,8 +12,8 @@
                     {{ __('Bem-vindo(a)') }} {{ auth()->user()->name ?? null }}
                 </div>
                 <div class="text-muted">
-                    O seu cadastro de associado está INCOMPLETO.
-                    Complete o seu cadastro para poder utilizar os benefícios do seu sindicato!
+                    O seu cadastro de associado está sendo processado.
+                    Aguarde para poder utilizar os benefícios do seu sindicato!
                 </div>
             </div>
     @else
